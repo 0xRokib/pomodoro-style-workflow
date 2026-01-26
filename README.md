@@ -1,109 +1,84 @@
-# Pomodoro Timer Setup for macOS
+# Pomodoro Timer for macOS (Zsh/Bash)
 
-This guide explains how to set up a Pomodoro-style workflow using shell aliases and a custom function in macOS. The setup utilizes the built-in `say` command, `terminal-notifier` for notifications, and a `timer` command (which should be installed separately) to track work and break intervals.
+A robust, terminal-based Pomodoro timer designed for productivity. It features a visual progress bar, sound alerts, and desktop notifications.
 
 ## Features
 
-- **Work Timer (60 minutes):** Alerts you when it's time to take a break.
-- **Break Timer (10 minutes):** Reminds you to resume work after a break.
-- **Loop Function (`pomo`):** Automates multiple Pomodoro cycles based on user input.
+- **Visual Progress Bar**: Smooth text-based progress bar with Unicode partial blocks.
+- **Customizable Sessions**: Set your own work and break durations.
+- **Smart Notifications**: Uses `terminal-notifier` if available, falls back to macOS native notifications.
+- **Sound Alerts**: Built-in `say` commands and system sounds to keep you on track.
+- **Interrupt Handling**: Cleanly handles `Ctrl+C` to restore your cursor and notify you.
 
----
+## Installation
 
-## Setup Instructions
+1.  **Clone or Download** this repository.
+2.  **Make the script executable** (optional but recommended):
+    ```sh
+    chmod +x pomo.zsh
+    ```
 
-### 1. Install `terminal-notifier`
+### Dependencies (Optional)
 
-If you don't have `terminal-notifier` installed, install it via Homebrew:
+For rich notifications with titles and icons, install `terminal-notifier`. If skipped, the script uses standard macOS notifications.
 
 ```sh
 brew install terminal-notifier
 ```
 
-### 2. Ensure You Have a `timer` Command
-
-If you don't already have a `timer` command, you can use the `sleep` command instead:
-
-```sh
-alias timer='sleep'
-```
-
-Alternatively, install a more advanced timer tool like `gawk`.
-
-### 3. Add Aliases and Function to Your Shell Profile
-
-Edit your shell configuration file (`~/.zshrc` or `~/.bashrc`) and add the following code:
-
-```sh
-alias work="timer 60m && say 'It'\''s break time, my friend! Get up and go for a walk! Drink some water' \
-    && terminal-notifier -message 'Pomodoro' \
-    -title 'Work Timer is up! Take a Break 😊' \
-    -contentImage "$HOME/Pictures/pumpkin.png" \
-    -sound Crystal"
-
-alias rest="timer 10m && say 'The break is over, Get back to work' \
-    && terminal-notifier -message 'Pomodoro' \
-    -title 'Break is over! Get back to work 😬' \
-    -contentImage "$HOME/Pictures/pumpkin.png" \
-    -sound Crystal"
-
-pomo(){
-    echo "How many rounds do you want to do?";
-    read count;
-    for i in $(seq 1 $count);
-    do
-        work;
-        sleep 1;
-        rest;
-    done
-}
-```
-
-### 4. Apply Changes
-
-After saving the file, apply the changes by running:
-
-```sh
-source ~/.zshrc  # or source ~/.bashrc
-```
-
----
-
 ## Usage
 
-### Start a Pomodoro session:
+### Option 1: Run Directly
+
+You can run the script directly from your terminal:
 
 ```sh
-pomo
+./pomo.zsh
 ```
 
-It will prompt you to enter the number of rounds (work + break cycles) you want to complete.
+Follow the interactive prompts to set rounds, work time, and break time.
 
-### Start a single work session:
+**Command Line Arguments:**
+You can also pass arguments to skip the prompts:
 
 ```sh
-work
+# usage: ./pomo.zsh [rounds] [work_minutes] [break_minutes]
+./pomo.zsh 4 25 5
 ```
 
-### Start a break session:
+### Option 2: Add to Shell (Recommended)
+
+To have the `pomo`, `work_session`, and `break_session` commands available everywhere in your terminal, add this to your `.zshrc` or `.bashrc`:
 
 ```sh
-rest
+source /path/to/your/Pomodoro/pomo.zsh
 ```
 
----
+_(Replace `/path/to/your/Pomodoro/pomo.zsh` with the actual path to the file)_
+
+Then reload your shell:
+
+```sh
+source ~/.zshrc
+```
+
+Now you can just type `pomo` anywhere!
+
+## Commands
+
+- `pomo`: Starts the full loop (Work -> Break -> Work...).
+- `work_session [minutes]`: Starts a standalone work timer (default 50m).
+- `break_session [minutes]`: Starts a standalone break timer (default 10m).
 
 ## Customization
 
-- Modify the `timer` durations (default: 60m for work, 10m for rest) based on your preferences.
-- Change the `say` message or notification settings as needed.
-- Replace the `contentImage` path with a different image.
+You can edit the variables at the top of `pomo.zsh` to change sounds or defaults:
 
----
+```bash
+WORK_SOUND="Crystal"
+BREAK_SOUND="Crystal"
+```
 
-## Notes
+## License
 
-- Ensure you have an image at `~/Pictures/pumpkin.png` or change the path accordingly.
-- If using `zsh`, restart your terminal after making changes.
-
-Happy productivity! 🚀
+MIT
