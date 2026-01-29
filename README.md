@@ -1,84 +1,122 @@
-# Pomodoro Timer for macOS (Zsh/Bash)
+# 🍅 Pomodoro Timer for macOS
 
-A robust, terminal-based Pomodoro timer designed for productivity. It features a visual progress bar, sound alerts, and desktop notifications.
+A beautiful, simple, and powerful Pomodoro timer that lives in your terminal. Perfect for staying focused without leaving your workflow.
 
-## Features
+![Pomodoro Demo](https://via.placeholder.com/800x400.png?text=Beautiful+Terminal+Timer+Demo) <!-- You can replace this later with a real screenshot -->
 
-- **Visual Progress Bar**: Smooth text-based progress bar with Unicode partial blocks.
-- **Customizable Sessions**: Set your own work and break durations.
-- **Smart Notifications**: Uses `terminal-notifier` if available, falls back to macOS native notifications.
-- **Sound Alerts**: Built-in `say` commands and system sounds to keep you on track.
-- **Interrupt Handling**: Cleanly handles `Ctrl+C` to restore your cursor and notify you.
+## ✨ Features
 
-## Installation
+- **Visual Progress Bar**: See exactly how much time is left with a smooth, high-resolution progress bar.
+- **Sound Alerts**: Hear a gentle alert when it's time to work or break (using macOS native `say` and system sounds).
+- **Desktop Notifications**: Get a pop-up alert if you're in another window.
+- **Smart Logic**: Automatically handles interruptions and restores your terminal cursor cleanly.
 
-1.  **Clone or Download** this repository.
-2.  **Make the script executable** (optional but recommended):
-    ```sh
-    chmod +x pomo.zsh
-    ```
+---
 
-### Dependencies (Optional)
+## 🚀 Getting Started (Beginner Friendly)
 
-For rich notifications with titles and icons, install `terminal-notifier`. If skipped, the script uses standard macOS notifications.
+If you've never used a terminal script before, don't worry! Just follow these steps:
 
-```sh
-brew install terminal-notifier
-```
+### 1. Download the Script
 
-## Usage
+First, get the code onto your computer. You can either:
 
-### Option 1: Run Directly
+- **Option A (Easy)**: Click the green "Code" button at the top right of this page and select **Download ZIP**. Unzip it to a folder (e.g., `Downloads/Pomodoro`).
+- **Option B (Fast)**: Open your terminal and run:
+  ```bash
+  git clone https://github.com/your-username/pomodoro-macos.git
+  cd pomodoro-macos
+  ```
 
-You can run the script directly from your terminal:
+### 2. Give Permission to Run
 
-```sh
+By default, macOS protects you from running random scripts. You need to tell it this one is okay:
+
+1. Open your **Terminal** app.
+2. Type `cd` followed by a space, then drag the folder containing `pomo.zsh` into the terminal window. Press **Enter**.
+3. Run this command:
+   ```bash
+   chmod +x pomo.zsh
+   ```
+   _This makes the script "executable" (ready to run)._
+
+---
+
+## 🛠 How to Use
+
+### Method 1: Run it Right Now
+
+If you just want to start a session quickly, run this in your terminal inside the project folder:
+
+```bash
 ./pomo.zsh
 ```
 
-Follow the interactive prompts to set rounds, work time, and break time.
+The script will ask you:
 
-**Command Line Arguments:**
-You can also pass arguments to skip the prompts:
+1. **How many rounds?** (e.g., 4)
+2. **Work time?** (e.g., 25)
+3. **Break time?** (e.g., 5)
 
-```sh
-# usage: ./pomo.zsh [rounds] [work_minutes] [break_minutes]
+---
+
+### Method 2: Make it a Permanent Command (Pro Tip)
+
+Want to just type `pomo` anywhere in your terminal? Follow these steps:
+
+1. Open your terminal and type:
+   ```bash
+   nano ~/.zshrc
+   ```
+2. Scroll to the bottom and paste this line (replace the path with your actual path):
+   ```bash
+   source ~/Documents/Pomodoro/pomo.zsh
+   ```
+3. Press `Ctrl + O` then `Enter` to save, and `Ctrl + X` to exit.
+4. Refresh your terminal:
+   ```bash
+   source ~/.zshrc
+   ```
+
+**Now you can use these commands anytime:**
+
+- `pomo`: Starts the full interactive setup.
+- `work_session 25`: Starts a 25-minute work timer immediately.
+- `break_session 5`: Starts a 5-minute break timer immediately.
+
+---
+
+## ⚡️ Advanced Usage
+
+You can skip the questions by passing numbers directly:
+
+```bash
+# Format: ./pomo.zsh [rounds] [work_minutes] [break_minutes]
 ./pomo.zsh 4 25 5
 ```
 
-### Option 2: Add to Shell (Recommended)
+## 🎨 Customization
 
-To have the `pomo`, `work_session`, and `break_session` commands available everywhere in your terminal, add this to your `.zshrc` or `.bashrc`:
-
-```sh
-source /path/to/your/Pomodoro/pomo.zsh
-```
-
-_(Replace `/path/to/your/Pomodoro/pomo.zsh` with the actual path to the file)_
-
-Then reload your shell:
-
-```sh
-source ~/.zshrc
-```
-
-Now you can just type `pomo` anywhere!
-
-## Commands
-
-- `pomo`: Starts the full loop (Work -> Break -> Work...).
-- `work_session [minutes]`: Starts a standalone work timer (default 50m).
-- `break_session [minutes]`: Starts a standalone break timer (default 10m).
-
-## Customization
-
-You can edit the variables at the top of `pomo.zsh` to change sounds or defaults:
+Want different sounds? Open `pomo.zsh` in any text editor and change these lines at the top:
 
 ```bash
+# You can use names like: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
 WORK_SOUND="Crystal"
 BREAK_SOUND="Crystal"
 ```
 
-## License
+## 📦 Dependencies
+
+The script works "out of the box," but for **prettier notifications**, you can install `terminal-notifier`:
+
+```bash
+brew install terminal-notifier
+```
+
+_If you don't have it, the script will still work perfectly using standard macOS alerts!_
+
+---
+
+## 📜 License
 
 MIT
