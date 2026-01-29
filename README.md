@@ -1,122 +1,137 @@
-# 🍅 Pomodoro Timer for macOS
+# 🍅 Cross-Platform Pomodoro Timer
 
-A beautiful, simple, and powerful Pomodoro timer that lives in your terminal. Perfect for staying focused without leaving your workflow.
+> A beautiful, simple, and powerful terminal-based Pomodoro timer for macOS, Linux, and Windows.
 
 ![Pomodoro Demo](pomo.png)
 
-## ✨ Features
-
-- **Visual Progress Bar**: See exactly how much time is left with a smooth, high-resolution progress bar.
-- **Sound Alerts**: Hear a gentle alert when it's time to work or break (using macOS native `say` and system sounds).
-- **Desktop Notifications**: Get a pop-up alert if you're in another window.
-- **Smart Logic**: Automatically handles interruptions and restores your terminal cursor cleanly.
+[![Platform macOS](https://img.shields.io/badge/platform-macOS-lightgrey.svg)](#-macos--linux)
+[![Platform Linux](https://img.shields.io/badge/platform-Linux-orange.svg)](#-macos--linux)
+[![Platform Windows](https://img.shields.io/badge/platform-Windows-blue.svg)](#-windows)
 
 ---
 
-## 🚀 Getting Started (Beginner Friendly)
+## ✨ Features
 
-If you've never used a terminal script before, don't worry! Just follow these steps:
+- 📊 **Visual Progress Bar**: High-resolution smooth progress tracking.
+- 🔔 **Smart Notifications**: Native desktop alerts for work and break transitions.
+- 🗣️ **Voice Alerts**: Clear audio cues when it's time to start or finish.
+- 🛠️ **Fully Customizable**: Easy-to-edit durations, sounds, and colors.
+- ⌨️ **Terminal Integrated**: Works within your existing workflow without extra apps.
 
-### 1. Download the Script
+---
 
-First, get the code onto your computer. You can either:
+## 🚀 Quick Start
 
-- **Option A (Easy)**: Click the green "Code" button at the top right of this page and select **Download ZIP**. Unzip it to a folder (e.g., `Downloads/Pomodoro`).
-- **Option B (Fast)**: Open your terminal and run:
-  ```bash
-  git clone https://github.com/your-username/pomodoro-macos.git
-  cd pomodoro-macos
-  ```
+### 🍎 macOS & 🐧 Linux
 
-### 2. Give Permission to Run
+The script runs in `zsh` or `bash`.
 
-By default, macOS protects you from running random scripts. You need to tell it this one is okay:
-
-1. Open your **Terminal** app.
-2. Type `cd` followed by a space, then drag the folder containing `pomo.zsh` into the terminal window. Press **Enter**.
-3. Run this command:
+1. **Download & Enter Folder:**
+   ```bash
+   git clone https://github.com/your-username/pomodoro-style-workflow.git
+   cd pomodoro-style-workflow
+   ```
+2. **Make Executable:**
    ```bash
    chmod +x pomo.zsh
    ```
-   _This makes the script "executable" (ready to run)._
+3. **Run:**
+   ```bash
+   ./pomo.zsh
+   ```
+
+> **Linux Note:** For notifications and voice, install: `sudo apt install libnotify-bin speech-dispatcher`
 
 ---
 
-## 🛠 How to Use
+### 🪟 Windows
 
-### Method 1: Run it Right Now
+Uses a native PowerShell script.
 
-If you just want to start a session quickly, run this in your terminal inside the project folder:
+1. **Download & Enter Folder:**
+   ```powershell
+   git clone https://github.com/your-username/pomodoro-style-workflow.git
+   cd pomodoro-style-workflow
+   ```
+2. **Enable Scripts (Run once as Admin):**
+   ```powershell
+   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+3. **Run:**
+   ```powershell
+   ./pomo.ps1
+   ```
+
+---
+
+## 🛠 Usage & Commands
+
+### Interactive Mode
+
+Run the script without arguments to be prompted for settings:
 
 ```bash
-./pomo.zsh
+./pomo.zsh  # or ./pomo.ps1 on Windows
 ```
 
-The script will ask you:
+### Quick Commands (CLI)
 
-1. **How many rounds?** (e.g., 4)
-2. **Work time?** (e.g., 25)
-3. **Break time?** (e.g., 5)
-
----
-
-### Method 2: Make it a Permanent Command (Pro Tip)
-
-Want to just type `pomo` anywhere in your terminal? Follow these steps:
-
-1. Open your terminal and type:
-   ```bash
-   nano ~/.zshrc
-   ```
-2. Scroll to the bottom and paste this line (replace the path with your actual path):
-   ```bash
-   source ~/Documents/Pomodoro/pomo.zsh
-   ```
-3. Press `Ctrl + O` then `Enter` to save, and `Ctrl + X` to exit.
-4. Refresh your terminal:
-   ```bash
-   source ~/.zshrc
-   ```
-
-**Now you can use these commands anytime:**
-
-- `pomo`: Starts the full interactive setup.
-- `work_session 25`: Starts a 25-minute work timer immediately.
-- `break_session 5`: Starts a 5-minute break timer immediately.
-
----
-
-## ⚡️ Advanced Usage
-
-You can skip the questions by passing numbers directly:
+You can skip prompts by passing arguments directly:
 
 ```bash
-# Format: ./pomo.zsh [rounds] [work_minutes] [break_minutes]
+# Format: [rounds] [work_minutes] [break_minutes]
 ./pomo.zsh 4 25 5
 ```
 
+---
+
+## 💎 Pro Tip: Global Access
+
+Want to type `pomo` from any folder?
+
+### macOS / Linux (zsh/bash)
+
+1. Open your profile: `nano ~/.zshrc` (or `~/.bashrc`)
+2. Add this line:
+   ```bash
+   source /path/to/your/pomo.zsh
+   ```
+3. Restart terminal or run `source ~/.zshrc`. Now you can use:
+   - `pomo`: Full setup
+   - `work_session 25`: Quick work timer
+   - `break_session 5`: Quick break timer
+
+### Windows (PowerShell)
+
+1. Open your profile: `notepad $PROFILE`
+2. Add this line:
+   ```powershell
+   function pomo { & "/path/to/your/pomo.ps1" @args }
+   ```
+3. Restart PowerShell. Now just type `pomo` anywhere!
+
+---
+
 ## 🎨 Customization
 
-Want different sounds? Open `pomo.zsh` in any text editor and change these lines at the top:
+Open the script in your favorite editor to tweak settings:
 
-```bash
-# You can use names like: Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink
-WORK_SOUND="Crystal"
-BREAK_SOUND="Crystal"
-```
+- **Sounds (macOS):** Change `WORK_SOUND` to any system sound (e.g., "Glass", "Hero").
+- **Colors:** Adjust ANSI color codes for a custom terminal look.
+- **Progress Bar:** Tweak `bar_width` to fit your terminal size.
+
+---
 
 ## 📦 Dependencies
 
-The script works "out of the box," but for **prettier notifications**, you can install `terminal-notifier`:
-
-```bash
-brew install terminal-notifier
-```
-
-_If you don't have it, the script will still work perfectly using standard macOS alerts!_
+| Feature           | macOS                          | Linux                 | Windows       |
+| :---------------- | :----------------------------- | :-------------------- | :------------ |
+| **Notifications** | Built-in / `terminal-notifier` | `libnotify-bin`       | Built-in      |
+| **Voice**         | Built-in `say`                 | `spd-say` or `espeak` | Built-in .NET |
+| **Shell**         | Zsh/Bash                       | Zsh/Bash              | PowerShell    |
 
 ---
 
 ## 📜 License
 
-MIT
+Distributed under the **MIT License**. See `LICENSE` for more information.

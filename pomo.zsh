@@ -18,24 +18,47 @@ YELLOW="\033[0;33m"
 RESET="\033[0m"
 BOLD="\033[1m"
 
+# --- OS Detection ---
+OS_TYPE=$(uname)
+
 # --- Helpers ---
 
-# Check if terminal-notifier is available
+# Check if terminal-notifier is available (macOS only)
 has_notifier() {
   command -v terminal-notifier &> /dev/null
 }
 
-# Send notification (cross-platform fallback to osascript)
+# Send notification
 notify() {
   local message="$1"
   local title="${2:-$NOTIFIER_TITLE}"
   local sound="${3:-$WORK_SOUND}"
 
-  if has_notifier; then
-    terminal-notifier -message "$message" -title "$title" -sound "$sound"
-  else
-    # Fallback to standard macOS notification
-    osascript -e "display notification \"$message\" with title \"$title\" sound name \"$sound\"" 2>/dev/null
+  if [[ "$OS_TYPE" == "Darwin" ]]; then
+    if has_notifier; then
+      terminal-notifier -message "$message" -title "$title" -sound "$sound"
+    else
+      # Fallback to standard macOS notification
+      osascript -e "display notification \"$message\" with title \"$title\" sound name \"$sound\"" 2>/dev/null
+    fi
+  elif [[ "$OS_TYPE" == "Linux" ]]; then
+    if command -v notify-send &> /dev/null; then
+      notify-send "$title" "$message"
+    fi
+  fi
+}
+
+# Text-to-speech helper
+speak() {
+  local message="$1"
+  if [[ "$OS_TYPE" == "Darwin" ]]; then
+    say "$message"
+  elif [[ "$OS_TYPE" == "Linux" ]]; then
+    if command -v spd-say &> /dev/null; then
+      spd-say "$message"
+    elif command -v espeak &> /dev/null; then
+      espeak "$message"
+    fi
   fi
 }
 
@@ -140,22 +163,22 @@ timer() {
 work_session() {
   local duration="${1:-50}"
   echo -e "${RED}🍅 Work session started for $duration minutes...${RESET}"
-  say "Work session started. Focus mode on."
+  speak "Work session started. Focus mode on."
   
   timer "${duration}m" "$RED"
   
-  say "Work session complete. Time for a break."
+  speak "Work session complete. Time for a break."
   notify "Work session complete! Take a break 😊" "Pomodoro" "$WORK_SOUND"
 }
 
 break_session() {
   local duration="${1:-10}"
   echo -e "${BLUE}😌 Break started for $duration minutes...${RESET}"
-  say "Break started. Relax and recharge."
+  speak "Break started. Relax and recharge."
   
   timer "${duration}m" "$BLUE"
   
-  say "Break is over. Get back to work."
+  speak "Break is over. Get back to work."
   notify "Break is over! Back to work 😬" "Pomodoro" "$BREAK_SOUND"
 }
 
@@ -201,7 +224,7 @@ pomo() {
   done
 
   echo -e "${GREEN}🎉 All $count rounds completed! Awesome work!${RESET}"
-  say "All Pomodoro rounds completed. You did amazing today!"
+  speak "All Pomodoro rounds completed. You did amazing today!"
   notify "All Pomodoro rounds completed 🎉" "Pomodoro" "$WORK_SOUND"
 }
 
