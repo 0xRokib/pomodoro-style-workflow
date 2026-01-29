@@ -2,7 +2,7 @@
 
 A beautiful, simple, and powerful Pomodoro timer that lives in your terminal. Perfect for staying focused without leaving your workflow.
 
-![Pomodoro Demo](https://via.placeholder.com/800x400.png?text=Beautiful+Terminal+Timer+Demo) <!-- You can replace this later with a real screenshot -->
+![Pomodoro Demo](pomo.png)
 
 ## ✨ Features
 
