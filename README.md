@@ -94,7 +94,14 @@ Want to just type `pomo` from any folder?
 3. Copy that output, open your settings (`notepad $PROFILE`), and paste it at the very bottom!
 4. Restart your terminal.
 
-Now, just type `pomo` whenever you need to focus! 🚀
+### ✅ Where can I run it now?
+
+Once you've done the "Pro Tip" steps above, **you are all set!**
+
+- **Any Folder:** You don't have to go to the "Pomodoro" folder anymore. Whether you are in your project folder, your desktop, or your downloads—just type `pomo`.
+- **Any New Window:** Every time you open a new Terminal or PowerShell window, the `pomo` command will be ready for you.
+
+Just type `pomo` whenever you need to focus! 🚀
 
 ---
 
