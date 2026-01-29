@@ -1,137 +1,103 @@
-# 🍅 Cross-Platform Pomodoro Timer
+# 🍅 My Pomodoro Timer
 
-> A beautiful, simple, and powerful terminal-based Pomodoro timer for macOS, Linux, and Windows.
+> **Stay focused, work better.** A simple terminal-based timer for anyone who wants to crush their tasks without distractions.
 
 ![Pomodoro Demo](pomo.png)
 
-[![Platform macOS](https://img.shields.io/badge/platform-macOS-lightgrey.svg)](#-macos--linux)
-[![Platform Linux](https://img.shields.io/badge/platform-Linux-orange.svg)](#-macos--linux)
-[![Platform Windows](https://img.shields.io/badge/platform-Windows-blue.svg)](#-windows)
+---
+
+## 🎯 Why use this?
+
+Instead of opening a website or a bulky app, this timer lives right where you work—in your terminal. It shows a smooth progress bar, gives you a friendly nudge when it's time to break, and even speaks to you!
 
 ---
 
-## ✨ Features
+## 📥 Step 1: Get the files
 
-- 📊 **Visual Progress Bar**: High-resolution smooth progress tracking.
-- 🔔 **Smart Notifications**: Native desktop alerts for work and break transitions.
-- 🗣️ **Voice Alerts**: Clear audio cues when it's time to start or finish.
-- 🛠️ **Fully Customizable**: Easy-to-edit durations, sounds, and colors.
-- ⌨️ **Terminal Integrated**: Works within your existing workflow without extra apps.
+First, you need to get these scripts onto your computer.
+
+1.  **Download the folder:** Click the green **"Code"** button at the top of this page and select **"Download ZIP"**.
+2.  **Unzip it:** Extract the files to a folder you can easily find (like your `Documents` or `Desktop`).
+3.  **Open your Terminal:**
+    - **Mac:** Press `Cmd + Space` and type "Terminal".
+    - **Windows:** Right-click the Start button and choose "PowerShell" or "Terminal".
 
 ---
 
-## 🚀 Quick Start
+## 🍎 Step 2: Running on Mac or Linux
 
-### 🍎 macOS & 🐧 Linux
+Follow these 3 easy steps:
 
-The script runs in `zsh` or `bash`.
+1.  **Go to the folder:** Type `cd ` in your terminal (with a space), then drag the folder you unzipped into the terminal window and press **Enter**.
+2.  **Give permission:** Copy and paste this command and press **Enter**:
+    ```bash
+    chmod +x pomo.zsh
+    ```
+3.  **Start the timer!** Type this and press **Enter**:
+    ```bash
+    ./pomo.zsh
+    ```
 
-1. **Download & Enter Folder:**
+> **Tip for Linux users:** If you want sound and notifications, run this first: `sudo apt install libnotify-bin speech-dispatcher`.
+
+---
+
+## 🪟 Step 2: Running on Windows
+
+Windows needs one quick setup step first:
+
+1.  **Go to the folder:** Type `cd ` in your terminal (with a space), then drag the folder you unzipped into the terminal window and press **Enter**.
+2.  **Allow scripts:** Copy and paste this command and press **Enter** (you only need to do this once):
+    ```powershell
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+    ```
+3.  **Start the timer!** Type this and press **Enter**:
+    ```powershell
+    ./pomo.ps1
+    ```
+
+---
+
+## 🛠 How to Use It
+
+Once you start the script, it will ask you three simple questions:
+
+1.  **How many rounds?** (Example: `4`)
+2.  **Work duration?** (Example: `25` minutes)
+3.  **Break duration?** (Example: `5` minutes)
+
+The timer will then start ticking! When the time is up, you'll hear a voice alert and see a notification.
+
+---
+
+## 🚀 Pro Tip: Use it anywhere!
+
+Want to just type `pomo` from any folder?
+
+### On Mac/Linux:
+
+1. Open your terminal **inside** the project folder.
+2. Run this command to see the exact line you need:
    ```bash
-   git clone https://github.com/your-username/pomodoro-style-workflow.git
-   cd pomodoro-style-workflow
+   echo "source $(pwd)/pomo.zsh"
    ```
-2. **Make Executable:**
-   ```bash
-   chmod +x pomo.zsh
-   ```
-3. **Run:**
-   ```bash
-   ./pomo.zsh
-   ```
+3. Copy that output, open your settings (`nano ~/.zshrc`), and paste it at the very bottom!
+4. Restart your terminal.
 
-> **Linux Note:** For notifications and voice, install: `sudo apt install libnotify-bin speech-dispatcher`
+### On Windows:
 
----
-
-### 🪟 Windows
-
-Uses a native PowerShell script.
-
-1. **Download & Enter Folder:**
+1. Open PowerShell **inside** the project folder.
+2. Run this command to see the exact line you need:
    ```powershell
-   git clone https://github.com/your-username/pomodoro-style-workflow.git
-   cd pomodoro-style-workflow
+   echo "function pomo { & \"$((Get-Item .).FullName)\pomo.ps1\" @args }"
    ```
-2. **Enable Scripts (Run once as Admin):**
-   ```powershell
-   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-   ```
-3. **Run:**
-   ```powershell
-   ./pomo.ps1
-   ```
+3. Copy that output, open your settings (`notepad $PROFILE`), and paste it at the very bottom!
+4. Restart your terminal.
+
+Now, just type `pomo` whenever you need to focus! 🚀
 
 ---
 
-## 🛠 Usage & Commands
+## 📜 Simple License
 
-### Interactive Mode
-
-Run the script without arguments to be prompted for settings:
-
-```bash
-./pomo.zsh  # or ./pomo.ps1 on Windows
-```
-
-### Quick Commands (CLI)
-
-You can skip prompts by passing arguments directly:
-
-```bash
-# Format: [rounds] [work_minutes] [break_minutes]
-./pomo.zsh 4 25 5
-```
-
----
-
-## 💎 Pro Tip: Global Access
-
-Want to type `pomo` from any folder?
-
-### macOS / Linux (zsh/bash)
-
-1. Open your profile: `nano ~/.zshrc` (or `~/.bashrc`)
-2. Add this line:
-   ```bash
-   source /path/to/your/pomo.zsh
-   ```
-3. Restart terminal or run `source ~/.zshrc`. Now you can use:
-   - `pomo`: Full setup
-   - `work_session 25`: Quick work timer
-   - `break_session 5`: Quick break timer
-
-### Windows (PowerShell)
-
-1. Open your profile: `notepad $PROFILE`
-2. Add this line:
-   ```powershell
-   function pomo { & "/path/to/your/pomo.ps1" @args }
-   ```
-3. Restart PowerShell. Now just type `pomo` anywhere!
-
----
-
-## 🎨 Customization
-
-Open the script in your favorite editor to tweak settings:
-
-- **Sounds (macOS):** Change `WORK_SOUND` to any system sound (e.g., "Glass", "Hero").
-- **Colors:** Adjust ANSI color codes for a custom terminal look.
-- **Progress Bar:** Tweak `bar_width` to fit your terminal size.
-
----
-
-## 📦 Dependencies
-
-| Feature           | macOS                          | Linux                 | Windows       |
-| :---------------- | :----------------------------- | :-------------------- | :------------ |
-| **Notifications** | Built-in / `terminal-notifier` | `libnotify-bin`       | Built-in      |
-| **Voice**         | Built-in `say`                 | `spd-say` or `espeak` | Built-in .NET |
-| **Shell**         | Zsh/Bash                       | Zsh/Bash              | PowerShell    |
-
----
-
-## 📜 License
-
-Distributed under the **MIT License**. See `LICENSE` for more information.
+This project is open-source under the MIT License. Feel free to share it!
